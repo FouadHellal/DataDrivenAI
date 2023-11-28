@@ -4,7 +4,6 @@ from matplotlib import pyplot as plt
 from sklearn.preprocessing import MinMaxScaler, StandardScaler,LabelEncoder
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix,accuracy_score, classification_report, ConfusionMatrixDisplay
-import os
 import tensorflow as tf # importer tensorflow
 from tensorflow import keras # importer Keras
 from keras.models import Sequential # Créer le modèle multicouche
@@ -145,4 +144,4 @@ def evaluate_model(kpi,classes,fct,batch,i):
     disp.plot()
 
 ii=input('choisissez votre cnn :')
-evaluate_model(kpi=6,classes=5, fct='relu', batch=32,i=int(ii))
+evaluate_model(kpi=6,classes=5, fct='softmax', batch=32,i=int(ii))
