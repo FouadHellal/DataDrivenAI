@@ -1,4 +1,4 @@
-'''-----------------------TP WITH IMAGES POTATO ----------------------------------------------'''
+'''-----------------------IMAGES POTATO ----------------------------------------------'''
 import numpy as np
 import pandas as pd
 import os
@@ -19,9 +19,9 @@ from tensorflow.keras.layers import Conv2D,GlobalAveragePooling2D,AveragePooling
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, classification_report
 
 Liste = [
-    "C:/Users/helfo/Downloads/Dataset/Potato_Late_blight",
-    "C:/Users/helfo/Downloads/Dataset/Potato_Early_blight",
-    "C:/Users/helfo/Downloads/Dataset/Potato_healthy"
+    "Datasets/Dataset/Potato_Late_blight",
+    "Datasets/Dataset/Potato_Early_blight",
+    "Datasets/Dataset/Potato_healthy"
     ]
 
 # Fonction pour générer les caractéristiques

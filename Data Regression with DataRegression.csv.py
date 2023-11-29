@@ -6,7 +6,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 '''------------------------------------------------------------------------------------------'''
-data = pd.read_csv("C:/Users/helfo/Downloads/DataRegression.csv")
+data = pd.read_csv("Datasets//DataRegression.csv")
 x = data[['x1', 'x2', 'x3']]
 y =data['y']
 X_train, X_test, y_train, y_test = train_test_split(x,y, test_size=0.2,random_state=42)

@@ -8,7 +8,7 @@ import matplotlib as plt
 
 # 1. Lire et normaliser les données
 # Supposons que data est votre DataFrame contenant les données immobilières
-data = pd.read_csv("C:/Users/helfo/Downloads/House_prediction.txt")
+data = pd.read_csv("Datasets//House_prediction.txt")
 
 x=data.drop('prix', axis=1)
 y=data["prix"]
