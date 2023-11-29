@@ -4,7 +4,7 @@ from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 from sklearn.metrics import silhouette_score
 
-data = pd.read_csv("Datasets//LTE_full_data.csv", index_col=None)
+data = pd.read_csv("Datasets/LTE_full_data.csv", index_col=None)
 
 ranges = [(0, 299), (12000, 12299), (88400, 88699), (125000, 125299), (162891, 163079), (169970, 170080)]
 

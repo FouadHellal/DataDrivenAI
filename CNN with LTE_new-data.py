@@ -11,7 +11,7 @@ from keras import optimizers # importer les optimiseurs : SGD, Adam, RMSprop
 from keras.utils import to_categorical # transformer les labels y en vecteurs canoniques
 from tensorflow.keras.layers import Conv1D, LeakyReLU, MaxPooling1D, Flatten, Dense, BatchNormalization, Dropout, GlobalAveragePooling1D
 
-LTE_data = pd.read_csv("Datasets//LTE_new_data.csv", index_col=None)
+LTE_data = pd.read_csv("Datasets/LTE_new_data.csv", index_col=None)
 Base=LTE_data[['RSRP', 'RSRQ','RSSI', 'SNR','DL_bitrate', 'UL_bitrate', 'path' ]]
 Base=Base.replace("-", 0)
 Appr=Base.drop('path', axis=1)

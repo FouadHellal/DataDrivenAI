@@ -13,7 +13,7 @@ os.environ['LOKY_MAX_CPU_COUNT'] = '4'
 OMP_NUM_THREADS=3
 
 
-data = pd.read_csv("Datasets//House_prediction.txt")
+data = pd.read_csv("Datasets/House_prediction.txt")
 x = data
 
 # nombre de clusters = 5

@@ -11,7 +11,7 @@ os.environ['LOKY_MAX_CPU_COUNT'] = '4'
 OMP_NUM_THREADS=3
 
 '''-------------------------------------------------------------------------------------------'''
-file= "Datasets//DataTelecom.csv"
+file= "Datasets/DataTelecom.csv"
 data = pd.read_csv(file)
 
 
