@@ -143,5 +143,5 @@ def evaluate_model(kpi,classes,fct,batch,i):
     disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=le.classes_)
     disp.plot()
 
-ii=input('choisissez votre cnn : ')
+ii=input('choose your CNN : ')
 evaluate_model(kpi=6,classes=5, fct='softmax', batch=32,i=int(ii))
