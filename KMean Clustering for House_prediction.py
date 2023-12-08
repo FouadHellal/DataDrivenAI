@@ -7,10 +7,9 @@ from sklearn.preprocessing import MinMaxScaler
 import matplotlib.pyplot as plt
 from sklearn.metrics import silhouette_score
 from scipy.spatial.distance import cdist
-import os
-os.environ['LOKY_MAX_CPU_COUNT'] = '4'
-
-OMP_NUM_THREADS=3
+#import os
+#os.environ['LOKY_MAX_CPU_COUNT'] = '4'
+#OMP_NUM_THREADS=3
 
 
 data = pd.read_csv("Datasets/House_prediction.txt")

@@ -6,7 +6,7 @@ import pandas as pd
 import numpy as np
 import matplotlib as plt
 
-# 1. Lire et normaliser les données
+# Lire et normaliser les données
 # Supposons que data est votre DataFrame contenant les données immobilières
 data = pd.read_csv("Datasets/House_prediction.txt")
 
@@ -22,7 +22,7 @@ X_train_normalized = scaler.fit_transform(X_train)
 X_val_normalized = scaler.transform(X_val)
 X_test_normalized = scaler.transform(X_test)
 
-# 2. Régression linéaire multiple
+# Régression linéaire multiple
 model = LinearRegression()
 model.fit(X_train_normalized, y_train)
 y_val_pred = model.predict(X_val_normalized)
@@ -30,7 +30,7 @@ mse_val = mean_squared_error(y_val, y_val_pred)
 r2_val = r2_score(y_val, y_val_pred)
 
 
-# 3. Régression polynomiale
+# Régression polynomiale
 
 best_degree = None
 best_mse = float('inf')
@@ -61,7 +61,7 @@ for degree in range(1, 8):
         best_degree = degree
 print('best degree =',best_degree)
 
-# 4. Ordre optimal du modèle
+# Ordre optimal du modèle
 
 def poly(degree,x,y):
         
@@ -89,14 +89,13 @@ def poly(degree,x,y):
 poly(best_degree,x,y)
 
 
-
 # Insérez ici le code pour prédire les données de test avec le meilleur modèle polynomial
 # et évaluer l'erreur quadratique moyenne et le coefficient de détermination.
 
-'''-----------------------------------5.2----------------------------------------------------------'''
+'''---------------------------------------------------------------------------------------------'''
 
 
-data3 = pd.read_csv("C:/Users/helfo/Downloads/Telco-Customer-Churn.csv", index_col=None)
+data3 = pd.read_csv("Datasets/Telco-Customer-Churn.csv", index_col=None)
 
 
 X_train, X_test, c_train, c_test = train_test_split(data3['tenure'].values.reshape(-1, 1), data3['Churn'], test_size=0.3, random_state=42)

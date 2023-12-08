@@ -150,10 +150,3 @@ disp.plot()
 # Afficher le rapport de classification
 report = classification_report(y_test, y_pred, target_names=None)
 print(report)
-
-#Accuracy des données de test: 92.79279112815857 % % Batch = 32 
-#Accuracy des données de test: 90.09009003639221 % Batch = 16 
-
-#Accuracy des données de test: 86.48648858070374 % 5*5 filters
-
-#Accuracy des données de test: 94.59459185600281 % using GAP / 5*5 filters

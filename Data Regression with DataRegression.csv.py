@@ -64,7 +64,7 @@ plt.show()
 
 
 
-'''-_-_-_-_-_6) NOW USING X1 X2 X3 REGRESSION LINEAIRE MULTIPLE -_-_-_-_-_-'''
+'''-_-_-_-_-_ NOW USING X1 X2 X3 REGRESSION LINEAIRE MULTIPLE -_-_-_-_-_-'''
 
 x = data[['x1', 'x2', 'x3']]
 y =data['y']
@@ -131,7 +131,7 @@ def regMult(x,y):
 regMult(x,y)
 
 
-'''-_-_-_-_-_7-8-9) REGRESSION POLYNOMIALE-_-_-_-_-_-'''
+'''-_-_-_-_-_ REGRESSION POLYNOMIALE-_-_-_-_-_-'''
 
 X_train, X_temp, y_train, y_temp = train_test_split(x, y, test_size=0.3, random_state=42)
 X_val, X_test, y_val, y_test = train_test_split(X_temp, y_temp, test_size=0.5, random_state=42)
@@ -194,18 +194,8 @@ poly(best_degree,x,y)
 
 
 
-# # Plot des données réelles et des prédictions
-# plt.scatter(y_test, y_test_pred, color='blue', label='Données réelles vs Prédictions')
-# plt.plot(X_test, y_pred, color='red', linewidth=2, label='Régression linéaire')
-# plt.xlabel('Valeurs réelles')
-# plt.ylabel('Prédictions')
-# plt.title('Prédictions vs Données Réelles (Régression polynomiale de degré 2)')
-# plt.legend()
-# plt.show()
-
-
 '''-------------------------------Régression discrete------------------------------------------------'''
-'''-_-_-_-_-2)Régression logistique with SAG-_-_-_-_-_-_-_-_-'''
+'''-_-_-_-_-Régression logistique with SAG-_-_-_-_-_-_-_-_-'''
 
 X_train, X_test, c_train, c_test = train_test_split(data['x1'].values.reshape(-1, 1), data['c'], test_size=0.3, random_state=42)
 
@@ -252,7 +242,7 @@ def sagReg(X_train, X_test, c_train, c_test):
 
 sagReg(X_train, X_test, c_train, c_test)
 
-'''-_-_-_-_-2)Régression logistique with NEWTON-CG-_-_-_-_-_-_-_-_-'''
+'''-_-_-_-_-Régression logistique with NEWTON-CG-_-_-_-_-_-_-_-_-'''
 
 def newton(X_train, X_test, c_train, c_test):
     # Régression logistique avec le solveur Newton-CG

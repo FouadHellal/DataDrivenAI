@@ -27,7 +27,7 @@ L_App = to_categorical(y_train)
 L_test = to_categorical(y_test)
 
 '''-._.-._-._.-._-._.-._-._.-._-._.-._-._.-._-._.-._-._.-._-._.-._-._.-._-._.-._-._.-._-._.-._'''
-#3 Simple CNN layers with Flatten then dense
+# 3 Simple CNN layers with Flatten then dense
 def cnn(kpi, classes):
     model = Sequential()
     
@@ -51,7 +51,7 @@ def cnn(kpi, classes):
     
     return model
 
-#3 Simple CNN layers then BatchNormalization with Flatten then dense
+# 3 Simple CNN layers then BatchNormalization with Flatten then dense
 def cnn_batch_norm(kpi, classes):
     model = Sequential()
     
@@ -79,7 +79,7 @@ def cnn_batch_norm(kpi, classes):
     
     return model
 
-#3 Simple CNN layers then BatchNormalization with GAP instead of flatten-dense
+# 3 Simple CNN layers then BatchNormalization with GAP instead of flatten-dense
 def cnn_GAP_fct(kpi, classes, fct):
     model = Sequential()
     

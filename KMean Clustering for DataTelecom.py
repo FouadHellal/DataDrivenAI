@@ -6,9 +6,9 @@ from sklearn.preprocessing import MinMaxScaler
 import matplotlib.pyplot as plt
 from sklearn.metrics import silhouette_score
 from scipy.spatial.distance import cdist
-import os
-os.environ['LOKY_MAX_CPU_COUNT'] = '4'
-OMP_NUM_THREADS=3
+#import os
+#os.environ['LOKY_MAX_CPU_COUNT'] = '4'
+#OMP_NUM_THREADS=3
 
 '''-------------------------------------------------------------------------------------------'''
 file= "Datasets/DataTelecom.csv"
@@ -18,16 +18,16 @@ data = pd.read_csv(file)
 x = data[['Frequency', 'SNR', 'Amplitude']]
 y =data['Class']
 
-# nombre de clusters = 5
+# clusters = 5
 kmeans = KMeans(n_clusters=5,n_init=10)
 
-# Apprentissage ta3 data X
+# Apprentissage des data X
 kmeans.fit(x)
 labels=kmeans.labels_
 # Prédiction des clusters pour Xi
 predicted_clusters = kmeans.predict(x)
 
-# Ajout des prédictions li jawna au DataFrame
+# Ajout des prédictions au'on a eu au DataFrame
 data['Predicted_Cluster'] = predicted_clusters
 
 #REGARDE LE DATA FRAME POUR COMPARER !
@@ -38,7 +38,7 @@ print("Pourcentage d'exactitude",Exact*100,"%")
 kmeans.inertia_ #la somme entre les pts d'un cluster et son centroid
 kmeans.score(x)
 
-"""3.2)"""
+
 # Extraction des données des clusters
 
 cluster_data = {} #Un dictionnaire pour stocker les data frames ta3 chaque cluster
@@ -91,11 +91,7 @@ plt.ylabel('SNR')
 plt.title('The damn centroids')
 plt.show()
 
-"""-----------------------------4)Clustering avec Normalisation-------------------------------------------"""
-
-
-file = "C:/Users/helfo/Downloads/DataTelecom.csv"
-data = pd.read_csv(file)
+"""-----------------------------Clustering avec Normalisation-------------------------------------------"""
 
 x = data[['Frequency', 'SNR', 'Amplitude']]
 y = data['Class']
@@ -132,7 +128,7 @@ for n in range(2,5):
 plt.show()
 
 
-"""-----------------------------5)la méthode Elbow / Silhouette-------------------------------------------"""
+"""-----------------------------Avec la méthode Elbow / Silhouette-------------------------------------------"""
 
 inertia = []
 silhouette_scores = []
