@@ -8,9 +8,9 @@ actions = [0, 1, 2, 3]
 q_values = np.zeros((env_L, env_C, len(actions)))
 
 rec = np.ones((10,10))
-# Récompenses :
+# Matrice des Récompenses:
 rec[:, :] = -1  
-rec[:,9]=rec[0:6,0]=rec[2,4:9]=rec[5,1:5]=rec[3:5,4]=-10
+rec[:,9]=rec[0:6,0]=rec[2,4:9]=rec[5,1:5]=rec[3:4,4]=-10
 rec[0,5]=5
 rec[9,5]=100
 
@@ -93,7 +93,7 @@ for episode in range(10000):
 
 print("Training done")
 
-print(shortest_path(0,5))
+print(shortest_path(1,1))
 
 
 
