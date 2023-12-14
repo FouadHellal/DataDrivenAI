@@ -1,4 +1,4 @@
-
+# Import necessary libraries
 import pandas as pd
 import numpy as np
 from sklearn.metrics import accuracy_score
@@ -7,51 +7,42 @@ from sklearn.preprocessing import MinMaxScaler
 import matplotlib.pyplot as plt
 from sklearn.metrics import silhouette_score
 from scipy.spatial.distance import cdist
-#import os
-#os.environ['LOKY_MAX_CPU_COUNT'] = '4'
-#OMP_NUM_THREADS=3
 
-
+# Read data from CSV file
 data = pd.read_csv("Datasets/House_prediction.txt")
 x = data
 
-# nombre de clusters = 5
-kmeans = KMeans(n_clusters=5,n_init=10)
+# Number of clusters = 5
+kmeans = KMeans(n_clusters=5, n_init=10)
 
-# Apprentissage ta3 data X
+# Train the model on data X
 kmeans.fit(x)
-labels=kmeans.labels_
-# Prédiction des clusters pour Xi
+labels = kmeans.labels_
+# Predict clusters for Xi
 predicted_clusters = kmeans.predict(x)
 
-# Ajout des prédictions li jawna au DataFrame
+# Add predictions to the DataFrame
 data['Predicted_Cluster'] = predicted_clusters
-cluster_data = {} #Un dictionnaire pour stocker les data frames ta3 chaque cluster
+cluster_data = {}  # A dictionary to store data frames for each cluster
 
 
-'''---------------------------Normalisation Min-Max---------------------------------------'''
+'''---------------------------Min-Max Normalization---------------------------------------'''
 
 scaler = MinMaxScaler()
 x_normalized = scaler.fit_transform(x)
 
-for n in range(2,5):
-
+# Iterate over different cluster numbers (2 to 4)
+for n in range(2, 5):
     kmeans = KMeans(n_clusters=n, n_init=5)
     kmeans.fit(x_normalized)
 
     predicted_clusters = kmeans.predict(x_normalized)
 
-    #accuracy = (predicted_clusters == y).mean()
-
-    print(f"clusters : {n}")
-    #print(f"Précision : {accuracy:.2f}\n")
-
-    # Ajout des prédictions au DataFrame
+    # Add predictions to the DataFrame
     data[f'Predicted_Cluster_{n}'] = predicted_clusters
-    
-    # Visualisation des clusters
+
+    # Visualize the clusters
     plt.figure()
-    
     for cluster in range(n):
         cluster_mask = data[f'Predicted_Cluster_{n}'] == cluster
         plt.scatter(x_normalized[cluster_mask, 0], x_normalized[cluster_mask, 1])
@@ -59,38 +50,37 @@ for n in range(2,5):
 
 plt.show()
 
-
-"""----------------------------- méthode Elbow / Silhouette-------------------------------------------"""
+"""----------------------------- Elbow Method / Silhouette Score-------------------------------------------"""
 
 inertia = []
 silhouette_scores = []
 
-
+# Iterate over different cluster numbers (2 to 15)
 for num_clusters in range(2, 16):
     k_means = KMeans(n_clusters=num_clusters)
     k_means.fit(x_normalized)
-    
-    #inertie)
+
+    # Inertia
     inertie = k_means.inertia_
-    #silhouette
-    #silhouette = sum(np.min(cdist(x_normalized, k_means.cluster_centers_,'euclidean'), axis=1)) / Xi_normalized.shape[0] WTF
+
+    # Silhouette Score
     silhouette = silhouette_score(x_normalized, k_means.labels_)
-    
+
     inertia.append(inertie)
     silhouette_scores.append(silhouette)
 
+# Plotting the Elbow Method
 plt.figure()
 plt.plot(range(2, 16), inertia, marker='o')
-plt.xlabel("Nombre de clusters")
-plt.ylabel("Inertie")
+plt.xlabel("Number of Clusters")
+plt.ylabel("Inertia")
+plt.title("Elbow Method")
 plt.show()
 
+# Plotting Silhouette Scores
 plt.figure()
 plt.plot(range(2, 16), silhouette_scores, marker='o')
-plt.xlabel("Nombre de clusters")
-plt.ylabel("Score Silhouette")
+plt.xlabel("Number of Clusters")
+plt.ylabel("Silhouette Score")
+plt.title("Silhouette Score Method")
 plt.show()
-
-
-    
-

@@ -1,3 +1,4 @@
+# Import necessary libraries
 import pandas as pd
 import numpy as np
 from sklearn.metrics import accuracy_score, adjusted_rand_score
@@ -6,48 +7,41 @@ from sklearn.preprocessing import MinMaxScaler
 import matplotlib.pyplot as plt
 from sklearn.metrics import silhouette_score
 from scipy.spatial.distance import cdist
-#import os
-#os.environ['LOKY_MAX_CPU_COUNT'] = '4'
-#OMP_NUM_THREADS=3
 
-'''-------------------------------------------------------------------------------------------'''
-file= "Datasets/DataTelecom.csv"
+# Load the dataset
+file = "Datasets/DataTelecom.csv"
 data = pd.read_csv(file)
 
-
+# Extract features and target variable
 x = data[['Frequency', 'SNR', 'Amplitude']]
-y =data['Class']
+y = data['Class']
 
-# clusters = 5
-kmeans = KMeans(n_clusters=5,n_init=10)
+# Number of clusters = 5
+kmeans = KMeans(n_clusters=5, n_init=10)
 
-# Apprentissage des data X
+# Train the model on features X
 kmeans.fit(x)
-labels=kmeans.labels_
-# Prédiction des clusters pour Xi
+labels = kmeans.labels_
+# Predict clusters for X
 predicted_clusters = kmeans.predict(x)
 
-# Ajout des prédictions au'on a eu au DataFrame
+# Add predictions to the DataFrame
 data['Predicted_Cluster'] = predicted_clusters
 
-#REGARDE LE DATA FRAME POUR COMPARER !
-# Calcul du pourcentage d'exactitude
-Exact = adjusted_rand_score(y, predicted_clusters)
-print("Pourcentage d'exactitude",Exact*100,"%")
+# Calculate accuracy percentage
+exact = adjusted_rand_score(y, predicted_clusters)
+print("Accuracy Percentage:", exact * 100, "%")
 
-kmeans.inertia_ #la somme entre les pts d'un cluster et son centroid
-kmeans.score(x)
+# Get inertia and score
+kmeans_inertia = kmeans.inertia_
+kmeans_score = kmeans.score(x)
 
-
-# Extraction des données des clusters
-
-cluster_data = {} #Un dictionnaire pour stocker les data frames ta3 chaque cluster
-
-
-for cluster in range(5):  
+# Extract data from clusters
+cluster_data = {}
+for cluster in range(5):
     cluster_data[cluster] = data[data['Predicted_Cluster'] == cluster]
 
-
+# Visualize clusters in 2D
 for cluster in range(5):
     plt.scatter(cluster_data[cluster]['Frequency'], cluster_data[cluster]['SNR'])
 plt.figure(1)
@@ -57,16 +51,16 @@ plt.show()
 
 '''--------------------Cooking--------------------------------------------------------------'''
 
-cluster_data = {}  # Un dictionnaire pour stocker les data frames de chaque cluster
+cluster_data = {}
 
+# Visualize clusters with normalized scales
 for cluster in range(5):
     cluster_data[cluster] = data[data['Predicted_Cluster'] == cluster]
-    
+
     plt.figure()
-    
+
     plt.scatter(cluster_data[cluster]['Frequency'], cluster_data[cluster]['SNR'])
-    
-    #pour maintenir l'echelle kamla, on prends les max et les min ta3 freq et snr bah ybano bien clusters
+
     plt.xlim(data['Frequency'].min(), data['Frequency'].max())
     plt.ylim(data['SNR'].min(), data['SNR'].max())
     plt.xlabel('Frequency')
@@ -76,47 +70,43 @@ for cluster in range(5):
 
 '''-----------------------------------------------------------------------------------------'''
 
-# Calcul des centroïdes
-
+# Calculate centroids
 centroidClusters = kmeans.cluster_centers_
 
-# Visualisation des centroïdes en utilisant scatter
+# Visualize centroids using scatter plot
 plt.figure(2)
-
 for cluster in range(5):
     plt.scatter(centroidClusters[cluster, 0], centroidClusters[cluster, 1])
 
 plt.xlabel('Frequency')
 plt.ylabel('SNR')
-plt.title('The damn centroids')
+plt.title('Centroids')
 plt.show()
 
-"""-----------------------------Clustering avec Normalisation-------------------------------------------"""
+"""-----------------------------Clustering with Normalization-------------------------------------------"""
 
 x = data[['Frequency', 'SNR', 'Amplitude']]
 y = data['Class']
 
-# Normalisation Min-Max
+# Min-Max normalization
 scaler = MinMaxScaler()
 x_normalized = scaler.fit_transform(x)
 
-
-for n in range(2,5):
-
+for n in range(2, 5):
     kmeans = KMeans(n_clusters=n, n_init=5)
     kmeans.fit(x_normalized)
 
     predicted_clusters = kmeans.predict(x_normalized)
 
-    Exact = accuracy_score(y, predicted_clusters)
-    print(f"clusters : {n}")
-    print("Pourcentage d'exactitude",Exact*100,"%")
+    # Calculate accuracy percentage
+    exact = accuracy_score(y, predicted_clusters)
+    print(f"Clusters: {n}")
+    print("Accuracy Percentage:", exact * 100, "%")
 
-
-    # Ajout des prédictions au DataFrame
+    # Add predictions to the DataFrame
     data[f'Predicted_Cluster_{n}'] = predicted_clusters
-    
-    # Visualisation des clusters
+
+    # Visualize clusters
     plt.figure()
     for cluster in range(n):
         cluster_mask = data[f'Predicted_Cluster_{n}'] == cluster
@@ -127,35 +117,37 @@ for n in range(2,5):
 
 plt.show()
 
-
-"""-----------------------------Avec la méthode Elbow / Silhouette-------------------------------------------"""
+"""-----------------------------With Elbow Method / Silhouette-------------------------------------------"""
 
 inertia = []
 silhouette_scores = []
 
-
+# Iterate over different cluster numbers (2 to 15)
 for num_clusters in range(2, 16):
     k_means = KMeans(n_clusters=num_clusters)
     k_means.fit(x_normalized)
-    
-    #inertie
+
+    # Inertia
     inertie = k_means.inertia_
-    
-    #silhouette
-    #silhouette = sum(np.min(cdist(x_normalized, k_means.cluster_centers_,'euclidean'), axis=1)) / Xi_normalized.shape[0] WTF
+
+    # Silhouette Score
     silhouette = silhouette_score(x_normalized, k_means.labels_)
-    
+
     inertia.append(inertie)
     silhouette_scores.append(silhouette)
 
+# Plotting the Elbow Method
 plt.figure(3)
 plt.plot(range(2, 16), inertia, marker='o')
-plt.xlabel("Nombre de clusters")
-plt.ylabel("Inertie")
+plt.xlabel("Number of Clusters")
+plt.ylabel("Inertia")
+plt.title("Elbow Method")
 plt.show()
 
+# Plotting Silhouette Scores
 plt.figure(4)
 plt.plot(range(2, 16), silhouette_scores, marker='o')
-plt.xlabel("Nombre de clusters")
-plt.ylabel("Score Silhouette")
+plt.xlabel("Number of Clusters")
+plt.ylabel("Silhouette Score")
+plt.title("Silhouette Score Method")
 plt.show()
